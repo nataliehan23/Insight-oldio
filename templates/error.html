@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block button %}
+    <div class="container section-colored">
+            <img class="img-responsive" src="static/pics/background.png"/>
+            <div class="btn-toolbar text-center">
+              <div class='example-countries marginadjustnatalie'>
+                  <span class="twitter-typeahead" style="position: relative; display: inline-block; ">
+                  <input class="typeahead tt-query" type="text" placeholder="Music Album Title" autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent; " dir="auto" name='title' id='title'>
+                  </span>     
+                  <div class='btn-group buttonnatalie' style="text-align:center;">
+                   <button type="button" class="btn-btn-primary btn-lg" id="music">Go</button>
+                  </div>
+                </div> 
+                <script>
+                  $("#music").click(function(){
+                    var title=$('#title').val();
+                    window.location.href = "search?musictitle=" + title 
+                  });
+                </script>
+                <script>
+                    $('.example-countries .typeahead').typeahead({
+                      name: 'CDtitles_seed',
+                      prefetch: 'static/json/CDtitles_seed.json',
+                      limit: 10
+                    });
+                </script>
+            </div>
+    </div><!-- /.container -->
+{% endblock %}
+
+{% block images %}
+    <!-- show error message, put a button to return to home page -->
+    <div class="row" >
+      <div class="col-md-offset-2 col-md-11"> 
+        <h3>Sorry! The album you searched is not in OldiO database yet! :(</h3>
+      </div>
+      <div class="col-md-offset-3 col-md-5 text-right">
+        <img src="/static/pics/error.jpeg" height = "400" style="border:2px solid white" class="img-rounded">
+      </div>
+      <div class="col-md-offset-2 col-md-11"> 
+        <h3>Click Home to start over or click the below images to restart. </h3>
+      </div>
+    </div>
+
+
+    <div class='posterlist' id='posterlist'> </div>
+{% endblock %}
+

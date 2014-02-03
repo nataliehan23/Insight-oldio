@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block button %}
+
+    <div class="container section-colored">
+            <img class="img-responsive" src="static/pics/background.png"/>
+            <div class="btn-toolbar text-center">
+              <div class='example-countries marginadjustnatalie'>
+                  <span class="twitter-typeahead" style="position: relative; display: inline-block; ">
+                  <input class="typeahead tt-query" type="text" placeholder="Music Album Title" autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent; " dir="auto" name='title' id='title'>
+                  </span>     
+                  <div class='btn-group buttonnatalie' style="text-align:center;">
+                   <button type="button" class="btn-btn-primary btn-lg" id="music">Go</button>
+                  </div>
+                </div> 
+                <script>
+                  $("#music").click(function(){
+                    var title=$('#title').val();
+                    window.location.href = "search?musictitle=" + title 
+                  });
+                </script>
+                <script>
+                    $('.example-countries .typeahead').typeahead({
+                      name: 'CDtitles_seed',
+                      prefetch: 'static/json/CDtitles_seed.json',
+                      limit: 10
+                    });
+                </script>
+            </div>
+        </div><!-- /.container -->
+
+{% endblock %}
+
+{% block search %}
+      <!-- show what people searched -->
+      <div class="row">
+        <div class="col-md-offset-1 col-md-11"> 
+          <h3>You searched for:</h3>
+        </div>
+
+        <div class="col-md-offset-2 col-md-3 text-right">
+            <img src={{ select[6] }} height = "220", width = "220" style="border:2px solid white" class="img-rounded">
+          </div>
+        <div class="col-md-2 text-left">
+          <iframe width="220" height="220" src={{ select[7]}} frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="col-md-3 text-left">some many many man many descripti many man many descriptio many man many descriptio many man many descriptio many man many descriptio many man many descriptio many man many descriptio many man many descriptioons edescprint 
+        </div>
+     </div>
+
+
+  <div class="row" >
+      <div class="col-md-offset-1 col-md-11"> 
+        <h3>Oldio recommends similiar albums: (click the album image to continue searching)</h3>
+      </div>
+
+      {% for music in musics %}
+      <div class="col-md-2 {% if loop.first %}col-md-offset-1{% endif %}">
+        <!-- <div class="span2"> -->
+        <a href="search?musictitle={{ music[1] }}" data-slide-index="0"><img src={{ music[6] }} height = "220", width = "220" style="border:2px solid white" class="img-rounded"></a>
+        <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal-{{ loop.index }}">
+         <i class="icon-white icon-heart"></i> More Information </button>
+      </div>
+      {% endfor %}
+
+      </div>
+
+      {% for music in musics %}
+        <!-- Modal -->
+        <div class="modal fade" id="modal-{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="myModalLabel"> {{ music[1] }} </h4>
+              </div>
+              <div class="modal-body">
+                
+                <h5> Album: {{ music[1] }} </h5> 
+                <h5> Artist: {{ music[2] }} </h5>
+                <h5> Pearson Similarity: {{ music[3] }} </h5>
+                <h5> Cosine Similarity: {{ music[4] }} </h5>
+                <h5> Common Users: {{ music[5] }} </h5>
+                <iframe width="450" height="350" src={{ music[7]}} frameborder="0" allowfullscreen></iframe>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="btn btn-default">
+                <a href="http://www.amazon.com/dp/{{ music[0] }}/" target=_blank >Check on Amazon!</a>
+                </div>       
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      {% endfor %}
+   <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+  {% endblock %}
+
+    
+
+   
