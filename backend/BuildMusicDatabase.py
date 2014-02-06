@@ -199,7 +199,7 @@ def main():
 	NewIDs = []
 	NewTitles = []
 	NewAuthors = []
-	for i in range(8,len(CDs)):
+	for i in range(128,len(CDs)):
 		NewIDs.append(CDs[i][0])
 		NewTitles.append(CDs[i][1])
 		NewAuthors.append(CDs[i][2])
